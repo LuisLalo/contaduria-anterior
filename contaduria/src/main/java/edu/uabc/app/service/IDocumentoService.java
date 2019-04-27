@@ -11,4 +11,5 @@ public interface IDocumentoService {
 	Documento buscarPorId(int idDocumento);
 	void eliminar(int idDocumento);
 	List<Documento> buscarPorIdVentanaOrdenPorOrden(int idVentana);
+	void actualizarOrdenNuevo(int orden, List<Documento> listaDocumento);
 }

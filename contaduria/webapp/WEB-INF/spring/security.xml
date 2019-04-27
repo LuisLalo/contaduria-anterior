@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<b:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:b="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+     http://www.springframework.org/schema/beans/spring-beans.xsd
+     http://www.springframework.org/schema/security 
+     http://www.springframework.org/schema/security/spring-security.xsd">
+  
+	<http auto-config="true">
+		
+		<intercept-url pattern="/" access="hasAnyAuthority('SGC','Area','Usuario','Interno','Externo')"/>
+
+		<form-login login-page="/login" />
+	</http>
+	 
+<!-- 	<authentication-manager>
+		<authentication-provider>
+			<user-service>
+				<user name="luis" password="{noop}luis123" authorities="SGC" />
+				<user name="marisol" password="{noop}mari123" authorities="Area" />
+				<user name="abel" password="{noop}abel123" authorities="Usuario" />
+				<user name="andres" password="{noop}andres123" authorities="Interno" />
+				<user name="manuel" password="{noop}manuel123" authorities="Externo" />
+			</user-service>
+		</authentication-provider>
+	</authentication-manager>-->
+  
+ 	<!--  Autenticación desde una base de datos --> 
+	<authentication-manager>
+		<authentication-provider>
+			<password-encoder hash="bcrypt" />
+			<jdbc-user-service data-source-ref="dataSource"
+			users-by-username-query="select correo, password, id_estatus, nombre, apellidos, id_usuario, id_tipo_usuario, id_dependencia from usuario where correo = ? "
+			authorities-by-username-query="select a.correo, b.tipo, b.id_tipo_usuario from usuario a, tipo_usuario b where a.id_tipo_usuario=b.id_tipo_usuario and a.correo = ? " />
+		</authentication-provider>
+	</authentication-manager>
+</b:beans>

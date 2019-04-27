@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -76,6 +77,11 @@ public class UsuarioController {
 			// Se vuelve a presentar el formulario al usuario para que efectue los cambios
 			return "usuario/formUsuario";
 		}
+		
+		// Encriptación del password de los usuarios
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String hashedPassword = passwordEncoder.encode(usuario.getPassword());
+		usuario.setPassword(hashedPassword);
 		
 		// Se hace la inserción a la base de datos
 		serviceUsuario.insertar(usuario);
