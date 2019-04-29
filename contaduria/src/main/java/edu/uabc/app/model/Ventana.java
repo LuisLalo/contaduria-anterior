@@ -24,6 +24,7 @@ public class Ventana {
 	private int idSubMenu;
 	@Column(name="id_referencia")
 	private int idReferencia;
+	private String descripcion;
 	
 	public Ventana() {
 		
@@ -85,9 +86,21 @@ public class Ventana {
 		this.idReferencia = idReferencia;
 	}
 
+	
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
 	@Override
 	public String toString() {
 		return "Ventana [idVentana=" + idVentana + ", nombre=" + nombre + ", liga=" + liga + ", idNivel=" + idNivel
-				+ ", estatus=" + estatus + ", idSubMenu=" + idSubMenu + ", idReferencia=" + idReferencia + "]";
+				+ ", estatus=" + estatus + ", idSubMenu=" + idSubMenu + ", idReferencia=" + idReferencia
+				+ ", descripcion=" + descripcion + "]";
 	}
+
+	
 }
