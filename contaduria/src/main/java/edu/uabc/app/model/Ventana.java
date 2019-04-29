@@ -20,8 +20,8 @@ public class Ventana {
 	@Column(name="id_nivel")
 	private int idNivel;
 	private String estatus;
-	@Column(name="id_subMenu")
-	private int idSubMenu;
+	@Column(name="orden")
+	private int orden;
 	@Column(name="id_referencia")
 	private int idReferencia;
 	
@@ -69,12 +69,12 @@ public class Ventana {
 		this.estatus = estatus;
 	}
 
-	public int getIdSubMenu() {
-		return idSubMenu;
+	public int getOrden() {
+		return orden;
 	}
 
-	public void setIdSubMenu(int idSubMenu) {
-		this.idSubMenu = idSubMenu;
+	public void setOrden(int orden) {
+		this.orden = orden;
 	}
 
 	public int getIdReferencia() {
@@ -88,6 +88,6 @@ public class Ventana {
 	@Override
 	public String toString() {
 		return "Ventana [idVentana=" + idVentana + ", nombre=" + nombre + ", liga=" + liga + ", idNivel=" + idNivel
-				+ ", estatus=" + estatus + ", idSubMenu=" + idSubMenu + ", idReferencia=" + idReferencia + "]";
+				+ ", estatus=" + estatus + ", orden=" + orden + ", idReferencia=" + idReferencia + "]";
 	}
 }

@@ -14,7 +14,7 @@
 
 <spring:url value="/resources" var="urlResources"></spring:url>
 <spring:url value="/" var="urlRoot"></spring:url>
-<spring:url value="/seccion/guardar" var="urlForm"></spring:url>
+<spring:url value="/rol/guardar" var="urlForm"></spring:url>
 <link rel="stylesheet" href="${ urlResources }/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
@@ -27,7 +27,7 @@
 	<div class="container">
 		
 		<br>
-		<h3 class="text-center font-weight-bold">Datos de la Sección</h3>
+		<h3 class="text-center font-weight-bold">Datos del Rol</h3>
 		<br>
 		 		
 	<spring:hasBindErrors name="Seccion">
@@ -42,47 +42,14 @@
 		</div>
 	</spring:hasBindErrors>
 
-      <form:form action="${ urlForm }" method="post" enctype="multipart/form-data" modelAttribute="ventana">
+      <form:form action="${ urlForm }" method="post" enctype="multipart/form-data" modelAttribute="tipoUsuario">
         <div class="row">
           <div class="col-sm-3">
             <div class="form-group">
               <label for="nombre">Nombre</label>
-              <form:hidden path="idVentana"/>
-              <form:input type="text" class="form-control" path="nombre" id="nombre" required="required" />
+              <form:hidden path="idTipoUsuario"/>
+              <form:input type="text" class="form-control" path="tipo" id="tipo" required="required" />
             </div>  
-          </div>
-          
-          <div class="col-sm-3">
-            <div class="form-group">
-              <label for="liga">liga</label>
-              <form:input type="text" class="form-control" path="liga" id="liga" required="required" />
-            </div>  
-          </div>
-          <div class="col-sm-3">
-            <div class="form-group">
-              <label for="id nivel">Nivel</label>
-              <form:input type="text" class="form-control" path="idNivel" id="idNivel" required="required" />
-            </div>  
-          </div>
-          <div class="col-sm-3">
-            <div class="form-group">
-              <label for="estatus">Estatus</label>
-              <form:input type="text" class="form-control" path="estatus" id="estatus" required="required" />
-            </div>  
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-3">
-            <div class="form-group">
-              <label for="Orden" class="control-label">Orden</label>              
-              <form:input type="text" class="form-control" path="orden" id="orden" required="required" />
-            </div> 
-          </div>
-          <div class="col-sm-3">
-            <div class="form-group">
-              <label for="idReferencia" class="control-label">idReferencia</label>              
-              <form:input type="text" class="form-control" path="idReferencia" id="idReferencia" required="required" />             
-            </div> 
           </div>
         </div>
         <button type="submit" class="btn btn-success" >Guardar</button>

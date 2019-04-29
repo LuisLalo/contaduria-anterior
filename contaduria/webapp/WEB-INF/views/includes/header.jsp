@@ -1,6 +1,6 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <spring:url value="/resources" var="urlResources"></spring:url>
 
 
@@ -53,6 +53,8 @@
 							<a class="dropdown-item" href="${ urlRoot }seccion/index">Secciones</a> 
 							<a class="dropdown-item" href="${ urlRoot }documento/index">Documentos</a>
 							<a class="dropdown-item" href="${ urlRoot }dependencia/index">Dependencias</a>
+							<a class="dropdown-item" href="${ urlRoot }rol/index">Roles</a>
+							<a class="dropdown-item" href="${ urlRoot }tipoDocumento/index">Tipo de Documentos</a>
 						</div></li>
 						 <%-- </sec:authorize> --%>
 								<li class="nav-item dropdown">
@@ -63,5 +65,16 @@
 			</div>
 		</nav>
 	</div>
+	<br>
+	${ menuCompleto }
 	
+	<!-- Datos del usuario -->
+	<div class="container marketing">
+		<div style="text-align:right; ">
+			Bienvenido(a) ${ usuarioAuth.nombre } ${ usuarioAuth.apellidos }
+		</div>
+		<div style="text-align:right; ">
+			
+		</div>
+	</div>
 	

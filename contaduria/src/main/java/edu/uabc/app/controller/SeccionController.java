@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,8 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import edu.uabc.app.model.Usuario;
 import edu.uabc.app.model.Ventana;
+import edu.uabc.app.service.IUsuarioService;
 import edu.uabc.app.service.IVentanaService;
+import edu.uabc.app.util.CrearMenu;
 
 @Controller
 @RequestMapping(value="/seccion", method=RequestMethod.GET)
@@ -26,8 +30,23 @@ public class SeccionController {
 	@Autowired
 	private IVentanaService serviceVentana;
 	
+	@Autowired
+	private IUsuarioService serviceUsuario;
+	
 	@RequestMapping(value="/index", method=RequestMethod.GET)
-	public String mostrarSeccion(Model model) {
+	public String mostrarSeccion(Model model, Authentication authentication) {
+		// Se agrega el nombre del usuario
+		Usuario usuarioAuth = serviceUsuario.buscarPorCorreo(authentication.getName());
+		model.addAttribute("usuarioAuth", usuarioAuth);
+		
+		// Proceso para la generación del menu por base de datos
+		List<Ventana> listaMenu = serviceVentana.buscarPorIdNivelOrdenPorOrden(1);
+		List<Ventana> listaSubMenu = serviceVentana.buscarPorIdNivelOrdenPorOrden(2);
+		System.out.println(listaMenu);
+		
+		CrearMenu crearMenu = new CrearMenu();
+		String menuCompleto = crearMenu.menu(listaMenu, listaSubMenu);
+		
 		// Se busca el listado de secciones
 		List<Ventana> lista = serviceVentana.buscarTodas();
 		model.addAttribute("seccion", lista);
@@ -58,7 +77,7 @@ public class SeccionController {
 		serviceVentana.insertar(ventana);
 		
 		// Se muestra el mensaje que el registro fue guardado exitosamente
-		attribute.addFlashAttribute("mensaje", "El registro fue guardado");
+		attribute.addFlashAttribute("mensaje", "La sección fue guardada");
 		
 		return "redirect:/seccion/index";
 	}
@@ -77,7 +96,9 @@ public class SeccionController {
 		// Se elimina el registro de la base de datos
 		serviceVentana.eliminar(idVentana);
 		
+		// Se muestra el mensaje que el registro fue guardado exitosamente
 		attributes.addFlashAttribute("mensaje", "La sección fue eliminada");
+		
 		return "redirect:/seccion/index";
 	}
 }

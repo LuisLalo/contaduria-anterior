@@ -10,4 +10,5 @@ public interface IUsuarioService {
 	List<Usuario> buscarTodas();
 	Usuario buscarPorId(int idUsuario);
 	void eliminar(int idUsuario);
+	Usuario buscarPorCorreo(String correo);
 }

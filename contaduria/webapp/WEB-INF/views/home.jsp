@@ -24,9 +24,6 @@
 	
 	<jsp:include page="includes/header.jsp"></jsp:include>
 	<br>
-	<div class="container marketing">
-	<div style="text-align:right; "><p>Bienvenido(a) <sec:authentication	property="principal.username"/></p></div></div>
-
 	
 	<div class="container">
 		<br>

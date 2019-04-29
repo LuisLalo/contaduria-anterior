@@ -40,4 +40,9 @@ public class VentanaServiceJPA implements IVentanaService {
 		ventanaRepo.deleteById(idVentana);
 	}
 
+	@Override
+	public List<Ventana> buscarPorIdNivelOrdenPorOrden(int idNivel) {
+		List<Ventana> lista = ventanaRepo.findByIdNivelOrderByOrden(idNivel);
+		return lista;
+	}
 }

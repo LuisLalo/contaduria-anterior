@@ -40,4 +40,13 @@ public class UsuarioServiceJPA implements IUsuarioService {
 		usuarioRepo.deleteById(idUsuario);
 	}
 
+	@Override
+	public Usuario buscarPorCorreo(String correo) {
+		Optional<Usuario> optional = usuarioRepo.findByCorreo(correo);
+		if(optional.isPresent()) {
+			return optional.get();
+		}
+		return null;
+	}
+
 }
