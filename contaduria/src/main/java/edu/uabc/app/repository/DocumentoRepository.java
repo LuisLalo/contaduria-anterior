@@ -12,4 +12,7 @@ public interface DocumentoRepository extends JpaRepository<Documento, Integer> {
 
 	// select * from documento where idVentana ordey by orden
 	List<Documento> findByIdVentanaOrderByOrden(int idVentana);
+	
+	// select * from documento where nombre
+	List<Documento> findByNombre(String nombre);
 }

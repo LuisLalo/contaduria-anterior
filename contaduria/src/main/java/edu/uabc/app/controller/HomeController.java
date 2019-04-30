@@ -63,13 +63,31 @@ public class HomeController {
 	}
 	
 		@GetMapping(value = "/{nombre}/index")
-		public String mostrarVentana(@PathVariable ("nombre") String nombre, Model modelo, Authentication authentication) {
+		public String mostrarVentana(@PathVariable ("nombre") String nombre, Model model, Authentication authentication) {
 		
-			//List<Documento> listadocs = serviceDocumento.buscarPorIdVentanaOrdenPorOrden(idVentana);
+			// Se agrega el nombre del usuario
+			Usuario usuarioAuth = serviceUsuario.buscarPorCorreo(authentication.getName());
+			model.addAttribute("usuarioAuth", usuarioAuth);
+			
+			// Proceso para la generación del menu por base de datos
+			List<Ventana> listaMenu = serviceVentana.buscarPorIdNivelOrdenPorOrden(1);
+			List<Ventana> listaSubMenu = serviceVentana.buscarPorIdNivelOrdernPorIdReferencia(2);
+			
+			CrearMenu crearMenu = new CrearMenu();
+			String menuCompleto = crearMenu.menu(listaMenu, listaSubMenu, usuarioAuth);
+			
+			model.addAttribute("menuCompleto", menuCompleto);
+			
+			// Proceso para buscar por URL
+			String liga = "/contaduria/";
+			liga = liga.concat(nombre);
+			liga = liga.concat("/index");
+			Ventana ventana = serviceVentana.buscarPorLiga(liga);
+			List<Documento> listaDocumento = serviceDocumento.buscarPorIdVentanaOrdenPorOrden(ventana.getIdVentana());
 			//Ventana ventana = serviceVentana.buscarPorId(idVentana);
 		
-			//modelo.addAttribute("ventana",ventana);
-			//modelo.addAttribute("documentos",listadocs);
+			model.addAttribute("ventana",ventana);
+			model.addAttribute("documentos", listaDocumento);
 		
 			return "visualizar/oficios";
 	}

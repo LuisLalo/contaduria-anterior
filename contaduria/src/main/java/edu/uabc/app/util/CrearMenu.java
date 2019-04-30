@@ -38,7 +38,7 @@ public class CrearMenu {
 		String usuarioInicio = "<!-- Datos del usuario -->\r\n" + 
 				"	<div class=\"container marketing\">\r\n" + 
 				"		<div style=\"text-align:right; \">\r\n" + 
-				"			Bienvenido(a)";
+				"			Bienvenido(a): ";
 		String usuarioFinal = "\r\n" + 
 				"		</div>\r\n" + 
 				"		<div style=\"text-align:right; \">\r\n" + 

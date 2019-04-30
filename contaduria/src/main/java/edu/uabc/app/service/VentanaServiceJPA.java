@@ -51,4 +51,13 @@ public class VentanaServiceJPA implements IVentanaService {
 		List<Ventana> lista = ventanaRepo.findByIdNivelOrderByIdReferencia(idNivel);
 		return lista;
 	}
+
+	@Override
+	public Ventana buscarPorLiga(String liga) {
+		Optional<Ventana> optional = ventanaRepo.findByLiga(liga);
+		if(optional.isPresent()) {
+			return optional.get();
+		}
+		return null;
+	}
 }
