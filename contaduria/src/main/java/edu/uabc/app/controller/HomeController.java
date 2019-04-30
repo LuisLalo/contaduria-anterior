@@ -7,11 +7,16 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import edu.uabc.app.model.Documento;
 import edu.uabc.app.model.Usuario;
 import edu.uabc.app.model.Ventana;
+import edu.uabc.app.service.IDocumentoService;
 import edu.uabc.app.service.IUsuarioService;
 import edu.uabc.app.service.IVentanaService;
 import edu.uabc.app.util.CrearMenu;
@@ -24,6 +29,9 @@ public class HomeController {
 	
 	@Autowired
 	private IUsuarioService serviceUsuario;
+	
+	@Autowired
+	private IDocumentoService serviceDocumento;
 	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public String mostrarLogin() {
@@ -50,8 +58,19 @@ public class HomeController {
 			//System.out.println("Menu: " + listaMenu);
 		}
 		
-		 
 		model.addAttribute("menuCompleto", menuCompleto);
 		return "home";
+	}
+	
+		@GetMapping(value = "/{nombre}/index")
+		public String mostrarVentana(@PathVariable ("nombre") String nombre, Model modelo, Authentication authentication) {
+		
+			//List<Documento> listadocs = serviceDocumento.buscarPorIdVentanaOrdenPorOrden(idVentana);
+			//Ventana ventana = serviceVentana.buscarPorId(idVentana);
+		
+			//modelo.addAttribute("ventana",ventana);
+			//modelo.addAttribute("documentos",listadocs);
+		
+			return "visualizar/oficios";
 	}
 }
