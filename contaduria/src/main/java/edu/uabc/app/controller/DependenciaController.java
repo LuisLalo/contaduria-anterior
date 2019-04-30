@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,7 +18,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.uabc.app.model.Dependencia;
+import edu.uabc.app.model.Usuario;
+import edu.uabc.app.model.Ventana;
 import edu.uabc.app.service.IDependenciaService;
+import edu.uabc.app.service.IUsuarioService;
+import edu.uabc.app.service.IVentanaService;
+import edu.uabc.app.util.CrearMenu;
 
 @Controller
 @RequestMapping(value="/dependencia")
@@ -26,8 +32,28 @@ public class DependenciaController {
 	@Autowired
 	private IDependenciaService serviceDependencia;
 	
+	@Autowired
+	private IVentanaService serviceVentana;
+	
+	@Autowired
+	private IUsuarioService serviceUsuario;
+	
 	@RequestMapping(value="/index", method=RequestMethod.GET)
-	public String mostrarDependencia(Model model) {
+	public String mostrarDependencia(Model model, Authentication authentication) {
+		
+		// Se agrega el nombre del usuario
+		Usuario usuarioAuth = serviceUsuario.buscarPorCorreo(authentication.getName());
+		model.addAttribute("usuarioAuth", usuarioAuth);
+		
+		// Proceso para la generación del menu por base de datos
+		List<Ventana> listaMenu = serviceVentana.buscarPorIdNivelOrdenPorOrden(1);
+		List<Ventana> listaSubMenu = serviceVentana.buscarPorIdNivelOrdernPorIdReferencia(2);
+		
+		CrearMenu crearMenu = new CrearMenu();
+		String menuCompleto = crearMenu.menu(listaMenu, listaSubMenu, usuarioAuth);
+	
+		model.addAttribute("menuCompleto", menuCompleto);
+		
 		// Se busca el listado de Dependencias para mostrarlo en la vista
 		List<Dependencia> lista = serviceDependencia.buscarTodas();
 		model.addAttribute("dependencia", lista);
@@ -35,7 +61,21 @@ public class DependenciaController {
 	}
 	
 	@GetMapping("/crear")
-	public String nuevaDependencia(Model model, @ModelAttribute Dependencia dependencia) {
+	public String nuevaDependencia(Model model, @ModelAttribute Dependencia dependencia, Authentication authentication) {
+		
+		// Se agrega el nombre del usuario
+		Usuario usuarioAuth = serviceUsuario.buscarPorCorreo(authentication.getName());
+		model.addAttribute("usuarioAuth", usuarioAuth);
+				
+		// Proceso para la generación del menu por base de datos
+		List<Ventana> listaMenu = serviceVentana.buscarPorIdNivelOrdenPorOrden(1);
+		List<Ventana> listaSubMenu = serviceVentana.buscarPorIdNivelOrdernPorIdReferencia(2);
+				
+		CrearMenu crearMenu = new CrearMenu();
+		String menuCompleto = crearMenu.menu(listaMenu, listaSubMenu, usuarioAuth);
+				
+		model.addAttribute("menuCompleto", menuCompleto);
+		
 		return "dependencia/formDependencia";
 	}
 	
@@ -59,7 +99,21 @@ public class DependenciaController {
 	}
 	
 	@GetMapping("/editar/{id}")
-	public String editarDependencia(@PathVariable("id") int idDependencia, Model model) {
+	public String editarDependencia(@PathVariable("id") int idDependencia, Model model, Authentication authentication) {
+		
+		// Se agrega el nombre del usuario
+		Usuario usuarioAuth = serviceUsuario.buscarPorCorreo(authentication.getName());
+		model.addAttribute("usuarioAuth", usuarioAuth);
+		
+		// Proceso para la generación del menu por base de datos
+		List<Ventana> listaMenu = serviceVentana.buscarPorIdNivelOrdenPorOrden(1);
+		List<Ventana> listaSubMenu = serviceVentana.buscarPorIdNivelOrdernPorIdReferencia(2);
+		
+		CrearMenu crearMenu = new CrearMenu();
+		String menuCompleto = crearMenu.menu(listaMenu, listaSubMenu, usuarioAuth);
+		
+		model.addAttribute("menuCompleto", menuCompleto);
+		
 		// Se busca el registro para mostralo dentro del formulario para la edición por parte del usuario
 		Dependencia dependencia = serviceDependencia.buscarPorId(idDependencia);
 		model.addAttribute("dependencia", dependencia);

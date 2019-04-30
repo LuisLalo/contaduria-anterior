@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,10 +22,13 @@ import edu.uabc.app.model.Dependencia;
 import edu.uabc.app.model.Estatus;
 import edu.uabc.app.model.TipoUsuario;
 import edu.uabc.app.model.Usuario;
+import edu.uabc.app.model.Ventana;
 import edu.uabc.app.service.IDependenciaService;
 import edu.uabc.app.service.IEstatusService;
 import edu.uabc.app.service.ITipoUsuarioService;
 import edu.uabc.app.service.IUsuarioService;
+import edu.uabc.app.service.IVentanaService;
+import edu.uabc.app.util.CrearMenu;
 
 @Controller
 @RequestMapping(value="/usuario")
@@ -42,8 +46,25 @@ public class UsuarioController {
 	@Autowired
 	private IUsuarioService serviceUsuario;
 	
+	@Autowired
+	private IVentanaService serviceVentana;
+	
 	@RequestMapping(value="/index", method=RequestMethod.GET)
-	public String mostrarUsuario(Model model) {
+	public String mostrarUsuario(Model model, Authentication authentication) {
+		
+		// Se agrega el nombre del usuario
+		Usuario usuarioAuth = serviceUsuario.buscarPorCorreo(authentication.getName());
+		model.addAttribute("usuarioAuth", usuarioAuth);
+		
+		// Proceso para la generación del menu por base de datos
+		List<Ventana> listaMenu = serviceVentana.buscarPorIdNivelOrdenPorOrden(1);
+		List<Ventana> listaSubMenu = serviceVentana.buscarPorIdNivelOrdernPorIdReferencia(2);
+		
+		CrearMenu crearMenu = new CrearMenu();
+		String menuCompleto = crearMenu.menu(listaMenu, listaSubMenu, usuarioAuth);
+		
+		model.addAttribute("menuCompleto", menuCompleto);
+		
 		// Se buscan el listado de los usuarios
 		List<Usuario> lista = serviceUsuario.buscarTodas();
 		model.addAttribute("usuario", lista);
@@ -52,7 +73,21 @@ public class UsuarioController {
 	}
 	
 	@GetMapping("/crear")
-	public String nuevoUsuario(Model model, @ModelAttribute Usuario usuario) {
+	public String nuevoUsuario(Model model, @ModelAttribute Usuario usuario, Authentication authentication) {
+		
+		// Se agrega el nombre del usuario
+		Usuario usuarioAuth = serviceUsuario.buscarPorCorreo(authentication.getName());
+		model.addAttribute("usuarioAuth", usuarioAuth);
+				
+		// Proceso para la generación del menu por base de datos
+		List<Ventana> listaMenu = serviceVentana.buscarPorIdNivelOrdenPorOrden(1);
+		List<Ventana> listaSubMenu = serviceVentana.buscarPorIdNivelOrdernPorIdReferencia(2);
+			
+		CrearMenu crearMenu = new CrearMenu();
+		String menuCompleto = crearMenu.menu(listaMenu, listaSubMenu, usuarioAuth);
+				
+		model.addAttribute("menuCompleto", menuCompleto);
+		
 		// Se busca el listado de las dependencias
 		List<Dependencia> listaDependencia = serviceDependencia.buscarTodas();
 		model.addAttribute("dependencia", listaDependencia);
@@ -93,7 +128,21 @@ public class UsuarioController {
 	}
 	
 	@GetMapping("/editar/{id}")
-	public String editarUsuario(@PathVariable ("id") int idUsuario, Model model) {
+	public String editarUsuario(@PathVariable ("id") int idUsuario, Model model, Authentication authentication) {
+		
+		// Se agrega el nombre del usuario
+		Usuario usuarioAuth = serviceUsuario.buscarPorCorreo(authentication.getName());
+		model.addAttribute("usuarioAuth", usuarioAuth);
+				
+		// Proceso para la generación del menu por base de datos
+		List<Ventana> listaMenu = serviceVentana.buscarPorIdNivelOrdenPorOrden(1);
+		List<Ventana> listaSubMenu = serviceVentana.buscarPorIdNivelOrdernPorIdReferencia(2);
+				
+		CrearMenu crearMenu = new CrearMenu();
+		String menuCompleto = crearMenu.menu(listaMenu, listaSubMenu, usuarioAuth);
+				
+		model.addAttribute("menuCompleto", menuCompleto);
+		
 		// Se busca el listado de las dependencias
 		List<Dependencia> listaDependencia = serviceDependencia.buscarTodas();
 		model.addAttribute("dependencia", listaDependencia);
