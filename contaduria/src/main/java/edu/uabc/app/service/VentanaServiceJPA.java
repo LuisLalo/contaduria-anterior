@@ -45,4 +45,10 @@ public class VentanaServiceJPA implements IVentanaService {
 		List<Ventana> lista = ventanaRepo.findByIdNivelOrderByOrden(idNivel);
 		return lista;
 	}
+
+	@Override
+	public List<Ventana> buscarPorIdNivelOrdernPorIdReferencia(int idNivel) {
+		List<Ventana> lista = ventanaRepo.findByIdNivelOrderByIdReferencia(idNivel);
+		return lista;
+	}
 }

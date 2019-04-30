@@ -11,4 +11,5 @@ public interface IVentanaService {
 	Ventana buscarPorId(int idVentana);
 	void eliminar(int idVentana);
 	List<Ventana> buscarPorIdNivelOrdenPorOrden(int idNivel);
+	List<Ventana> buscarPorIdNivelOrdernPorIdReferencia(int idNivel);
 }

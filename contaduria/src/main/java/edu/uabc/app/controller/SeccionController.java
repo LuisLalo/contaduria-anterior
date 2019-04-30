@@ -41,11 +41,12 @@ public class SeccionController {
 		
 		// Proceso para la generación del menu por base de datos
 		List<Ventana> listaMenu = serviceVentana.buscarPorIdNivelOrdenPorOrden(1);
-		List<Ventana> listaSubMenu = serviceVentana.buscarPorIdNivelOrdenPorOrden(2);
+		List<Ventana> listaSubMenu = serviceVentana.buscarPorIdNivelOrdernPorIdReferencia(2);
 		System.out.println(listaMenu);
 		
 		CrearMenu crearMenu = new CrearMenu();
-		String menuCompleto = crearMenu.menu(listaMenu, listaSubMenu);
+		String menuCompleto = crearMenu.menu(listaMenu, listaSubMenu, usuarioAuth);
+		model.addAttribute("menuCompleto", menuCompleto);
 		
 		// Se busca el listado de secciones
 		List<Ventana> lista = serviceVentana.buscarTodas();

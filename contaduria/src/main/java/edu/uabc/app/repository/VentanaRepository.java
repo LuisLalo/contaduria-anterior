@@ -12,4 +12,7 @@ public interface VentanaRepository extends JpaRepository<Ventana, Integer> {
 
 	// select * from ventana where id_nivel and orden
 	List<Ventana> findByIdNivelOrderByOrden(int idNivel);
+	
+	// select * from ventana where id_nivel and order by id_nivel
+	List<Ventana> findByIdNivelOrderByIdReferencia(int idNivel);
 }

@@ -39,10 +39,10 @@ public class HomeController {
 		
 		// Proceso para la generación del menu por base de datos
 		List<Ventana> listaMenu = serviceVentana.buscarPorIdNivelOrdenPorOrden(1);
-		List<Ventana> listaSubMenu = serviceVentana.buscarPorIdNivelOrdenPorOrden(2);
+		List<Ventana> listaSubMenu = serviceVentana.buscarPorIdNivelOrdernPorIdReferencia(2);
 		
 		CrearMenu crearMenu = new CrearMenu();
-		String menuCompleto = crearMenu.menu(listaMenu, listaSubMenu);
+		String menuCompleto = crearMenu.menu(listaMenu, listaSubMenu, usuarioAuth);
 		
 		// Se obtiene el rol del usuario
 		for(GrantedAuthority rol: authentication.getAuthorities()) {

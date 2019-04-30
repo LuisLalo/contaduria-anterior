@@ -24,6 +24,10 @@ public class Ventana {
 	private int orden;
 	@Column(name="id_referencia")
 	private int idReferencia;
+	private String descripcion;
+	private String responsable;
+	private String correo;
+	private String extension;
 	
 	public Ventana() {
 		
@@ -84,10 +88,44 @@ public class Ventana {
 	public void setIdReferencia(int idReferencia) {
 		this.idReferencia = idReferencia;
 	}
+	
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public String getResponsable() {
+		return responsable;
+	}
+
+	public void setResponsable(String responsable) {
+		this.responsable = responsable;
+	}
+
+	public String getCorreo() {
+		return correo;
+	}
+
+	public void setCorreo(String correo) {
+		this.correo = correo;
+	}
+
+	public String getExtension() {
+		return extension;
+	}
+
+	public void setExtension(String extension) {
+		this.extension = extension;
+	}
 
 	@Override
 	public String toString() {
 		return "Ventana [idVentana=" + idVentana + ", nombre=" + nombre + ", liga=" + liga + ", idNivel=" + idNivel
-				+ ", estatus=" + estatus + ", orden=" + orden + ", idReferencia=" + idReferencia + "]";
+				+ ", estatus=" + estatus + ", orden=" + orden + ", idReferencia=" + idReferencia + ", descripcion="
+				+ descripcion + ", responsable=" + responsable + ", correo=" + correo + ", extension=" + extension
+				+ "]";
 	}
 }

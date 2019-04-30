@@ -20,6 +20,7 @@
 <spring:url value="/" var="urlRoot" />
 <spring:url value="/resources" var="urlResources"></spring:url>
 <!-- Barra de navegación -->
+<!--  
 	<div class="container">
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 			<a class="navbar-brand" href="${ urlRoot }"> 
@@ -65,16 +66,8 @@
 			</div>
 		</nav>
 	</div>
-	<br>
+	<br>-->
 	${ menuCompleto }
 	
-	<!-- Datos del usuario -->
-	<div class="container marketing">
-		<div style="text-align:right; ">
-			Bienvenido(a) ${ usuarioAuth.nombre } ${ usuarioAuth.apellidos }
-		</div>
-		<div style="text-align:right; ">
-			
-		</div>
-	</div>
+	
 	
