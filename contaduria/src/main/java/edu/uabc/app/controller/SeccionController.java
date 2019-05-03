@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -56,7 +57,25 @@ public class SeccionController {
 	}
 	
 	@GetMapping("/crear")
-	public String crearSeccion(Model model, @ModelAttribute Ventana ventana) {
+	public String crearSeccion(Model model, @ModelAttribute Ventana ventana, Authentication authentication) {
+		// Se agrega el nombre del usuario
+				Usuario usuarioAuth = serviceUsuario.buscarPorCorreo(authentication.getName());
+				model.addAttribute("usuarioAuth", usuarioAuth);
+				
+				// Proceso para la generación del menu por base de datos
+				List<Ventana> listaMenu = serviceVentana.buscarPorIdNivelOrdenPorOrden(1);
+				List<Ventana> listaSubMenu = serviceVentana.buscarPorIdNivelOrdernPorIdReferencia(2);
+				
+				CrearMenu crearMenu = new CrearMenu();
+				String menuCompleto = crearMenu.menu(listaMenu, listaSubMenu, usuarioAuth);
+				
+				// Se obtiene el rol del usuario
+				for(GrantedAuthority rol: authentication.getAuthorities()) {
+					System.out.println("Rol: " + rol.getAuthority());
+					//System.out.println("Menu: " + listaMenu);
+				}
+				
+				model.addAttribute("menuCompleto", menuCompleto);
 		// Se busca el listado de Secciones para mostrarlo en la vista
 		List<Ventana> lista = serviceVentana.buscarTodas();
 		model.addAttribute("seccion", lista);

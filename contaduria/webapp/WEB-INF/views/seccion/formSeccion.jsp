@@ -43,6 +43,7 @@
 	</spring:hasBindErrors>
 
       <form:form action="${ urlForm }" method="post" enctype="multipart/form-data" modelAttribute="ventana">
+        <fieldset> <legend>Sección</legend>
         <div class="row">
           <div class="col-sm-3">
             <div class="form-group">
@@ -84,7 +85,38 @@
               <form:input type="text" class="form-control" path="idReferencia" id="idReferencia" required="required" />             
             </div> 
           </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label for="descripcion">Descripción</label>
+              <form:input type="textarea" class="form-control" path="descripcion" id="descripcion" />
+            </div>  
+          </div>
         </div>
+        </fieldset>
+        <fieldset> <legend>Responsable</legend>
+        <div class="row">
+        
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label for="responsable">Nombre</label>
+              <form:input type="text" class="form-control" path="responsable" id="responsable" />
+            </div>  
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label for="correo">correo</label>
+              <form:input type="email" class="form-control" path="correo" id="correo" />
+            </div>  
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label for="extension">Extensión</label>
+              <form:input type="text" class="form-control" path="extension" id="extension" />
+            </div>  
+          </div>
+        </div>
+        </fieldset>
+        
         <button type="submit" class="btn btn-success" >Guardar</button>
       </form:form> 
 		
@@ -95,8 +127,13 @@
 	<!-- Bootstrap core JavaScript
     ================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<script src="${urlResources}/bootstrap/js/bootstrap.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+	<script src="${ urlResources }/bootstrap/js/bootstrap.min.js"></script>
+	<script src="${ urlResources }/bootstrap/js/bootstrap-4-navbar.js"></script>
+
 </body>
 </html>
