@@ -70,7 +70,9 @@ public class CrearMenu {
 				if(listaSubMenu.get(contador).getIdReferencia() == conta) {
 					System.out.println(listaSubMenu.get(contador).getLiga());
 					menuCompleto = menuCompleto.concat(menuCinco);
+					menuCompleto = menuCompleto.concat("/contaduria/");
 					menuCompleto = menuCompleto.concat(listaSubMenu.get(contador).getLiga());
+					menuCompleto = menuCompleto.concat("/index");
 					menuCompleto = menuCompleto.concat(menuSeis);
 					menuCompleto = menuCompleto.concat(listaSubMenu.get(contador).getNombre());
 					menuCompleto = menuCompleto.concat(menuSiete);

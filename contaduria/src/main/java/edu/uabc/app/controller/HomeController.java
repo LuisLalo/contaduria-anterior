@@ -79,10 +79,10 @@ public class HomeController {
 			model.addAttribute("menuCompleto", menuCompleto);
 			
 			// Proceso para buscar por URL
-			String liga = "/contaduria/";
-			liga = liga.concat(nombre);
-			liga = liga.concat("/index");
-			Ventana ventana = serviceVentana.buscarPorLiga(liga);
+			//String liga = "/contaduria/";
+			//liga = liga.concat(nombre);
+			//liga = liga.concat("/index");
+			Ventana ventana = serviceVentana.buscarPorLiga(nombre);
 			List<Documento> listaDocumento = serviceDocumento.buscarPorIdVentanaOrdenPorOrden(ventana.getIdVentana());
 			//Ventana ventana = serviceVentana.buscarPorId(idVentana);
 		

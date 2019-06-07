@@ -22,8 +22,6 @@ public class Documento {
 	private int orden;
 	@Column(name="id_tipo_documento")
 	private int idTipoDocumento;
-	@Column(name="id_informe")
-	private int idInforme;
 	
 	public Documento() {
 		
@@ -77,18 +75,9 @@ public class Documento {
 		this.idTipoDocumento = idTipoDocumento;
 	}
 
-	public int getIdInforme() {
-		return idInforme;
-	}
-
-	public void setIdInforme(int idInforme) {
-		this.idInforme = idInforme;
-	}
-
 	@Override
 	public String toString() {
 		return "Documento [idDocumento=" + idDocumento + ", nombre=" + nombre + ", liga=" + liga + ", idVentana="
-				+ idVentana + ", orden=" + orden + ", idTipoDocumento=" + idTipoDocumento + ", idInforme=" + idInforme
-				+ "]";
+				+ idVentana + ", orden=" + orden + ", idTipoDocumento=" + idTipoDocumento + "]";
 	}
 }
