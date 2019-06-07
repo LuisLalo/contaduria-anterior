@@ -28,7 +28,7 @@ import edu.uabc.app.util.CrearMenu;
 @Controller
 @RequestMapping(value="/dependencia")
 public class DependenciaController {
-
+	
 	@Autowired
 	private IDependenciaService serviceDependencia;
 	
